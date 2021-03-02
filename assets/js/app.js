@@ -12,6 +12,9 @@ function getData() {
 			if (response.ok) {
 				response.json()
 					.then(function(data) {
+						
+						console.log(data);
+						
 						displayInfo(data);
 					});
 			}
@@ -34,10 +37,21 @@ function displayInfo(data) {
 	const nameEl = document.createElement("h5");
 	nameEl.className = "card-title";
 	nameEl.textContent = data.name["name-USen"];
+	
+	const personalityEl = document.createElement("p");
+	personalityEl.classList = "card-text text-secondary";
+	personalityEl.textContent = data.personality + " Villager";
 
 	const sayingEl = document.createElement("p");
-	sayingEl.className = ""
+	sayingEl.className = "card-text";
 	sayingEl.textContent = '"' + data.saying + '"';
+	
+	const listEl = document.createElement("ul");
+	listEl.classList = "list-group list-group-flush";
+	
+	const birthdayEl = document.createElement("li");
+	birthdayEl.className = "list-group-item";
+	birthdayEl.textContent = "Birthday: " + data["birthday-string"];
 	
 	//draw elements
 	infoEl.appendChild(cardEl);
@@ -45,7 +59,11 @@ function displayInfo(data) {
 	cardEl.appendChild(bodyEl);
 	
 	bodyEl.appendChild(nameEl);
+	bodyEl.appendChild(personalityEl);
 	bodyEl.appendChild(sayingEl);
+	
+	cardEl.appendChild(listEl);
+	listEl.appendChild(birthdayEl);
 	
 
 }
