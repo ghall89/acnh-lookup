@@ -15,7 +15,7 @@
 			<div class="col-12 col-md-6 g-5">
 				<form>
 
-					<select class="form-select" aria-label="Default select example">
+					<select class="form-select" id="personality-menu" aria-label="Default select example">
 						<option selected>Choose personality...</option>
 						<option value="Cranky">Cranky</option>
 						<option value="Jock">Jock</option>
@@ -27,7 +27,7 @@
 						<option value="Snooty">Snooty</option>
 					</select>
 					
-					<button type="button" class="btn btn-primary">Search</button>
+					<button type="button" class="btn btn-primary" id="personality-button">Search</button>
 					
 				</form>
 			</div>
@@ -84,9 +84,9 @@
 		</div>
 		
 		<div class="row">
-			<!-- <div class="col"></div> -->
-			<div class="col g-5" id="display-info"></div>
-			<!-- <div class="col"></div> -->
+			<div class="col g-5">
+				<div class="row" id="display-info"></div>
+			</div>
 		</div>	
 	</div>
 	

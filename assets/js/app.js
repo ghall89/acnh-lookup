@@ -1,60 +1,84 @@
-let personality = "Cranky";
-let villagerId = "111";
-
 const infoEl = document.querySelector("#display-info");
 
-function getData() {
+const personalityMenuEl = document.querySelector("#personality-menu");
+const personalityBtnEl = document.querySelector("#personality-button");
 
-	let url = "https://acnhapi.com/v1/villagers/" + villagerId;
 
+
+
+function getData(searchKey, searchValue) {
+	// API Url
+	let url = "https://acnhapi.com/v1/villagers/";
+
+	// get JSON data and pass to display function
 	fetch(url)
 		.then(function(response) {
 			if (response.ok) {
 				response.json()
 					.then(function(data) {
-						
-						console.log(data);
-						
-						displayInfo(data);
+						// iterate through each villager object
+						for (let i = 0; i < 391; i++) {
+							let villagerKey = Object.keys(data)[i];
+							
+							let villager = data[villagerKey]
+							
+							console.log(villager);
+							
+							if (villager.personality == searchValue) {
+								displayInfo(villager);
+							}
+					}
+
 					});
+			} else {
+				alert("Error, could not connect to ACNH API");
 			}
 		});
 		
 }
 
-function displayInfo(data) {
-	// create card
+function displayInfo(villager) {
+	
+	// create Bootstrap elements for each villager
+	
+	// Bootstrap columns
+	columnEl = document.createElement("div");
+	columnEl.classList = "col-12 col-md-6 col-lg-4 gy-3"
+	
+	// Bootstrap cards
 	const cardEl = document.createElement("div");
 	cardEl.className = "card";
-	cardEl.setAttribute("style", "width: 18rem");
+	cardEl.setAttribute("style", "width: 100%");
 	const imgEl = document.createElement("img");
-	imgEl.setAttribute("src", data.image_uri);
+	imgEl.setAttribute("src", villager.image_uri);
 	imgEl.className = "card-img-top";
 	const bodyEl = document.createElement("div")
 	bodyEl.className = "card-body"
 	
-	//create card content
+	//card contents
+	// villager name
 	const nameEl = document.createElement("h5");
 	nameEl.className = "card-title";
-	nameEl.textContent = data.name["name-USen"];
-	
+	nameEl.textContent = villager.name["name-USen"];
+	// descriptor
 	const personalityEl = document.createElement("p");
 	personalityEl.classList = "card-text text-secondary";
-	personalityEl.textContent = data.personality + " Villager";
-
+	personalityEl.textContent = villager.personality + " Villager";
+	// quote
 	const sayingEl = document.createElement("p");
 	sayingEl.className = "card-text";
-	sayingEl.textContent = '"' + data.saying + '"';
-	
+	sayingEl.textContent = '"' + villager.saying + '"';
+	// birthday
 	const listEl = document.createElement("ul");
 	listEl.classList = "list-group list-group-flush";
-	
 	const birthdayEl = document.createElement("li");
 	birthdayEl.className = "list-group-item";
-	birthdayEl.textContent = "Birthday: " + data["birthday-string"];
+	birthdayEl.textContent = "Birthday: " + villager["birthday-string"];
 	
-	//draw elements
-	infoEl.appendChild(cardEl);
+	//display elements
+	infoEl.appendChild(columnEl)
+	
+	columnEl.appendChild(cardEl);
 	cardEl.appendChild(imgEl);
 	cardEl.appendChild(bodyEl);
 	
@@ -64,8 +88,17 @@ function displayInfo(data) {
 	
 	cardEl.appendChild(listEl);
 	listEl.appendChild(birthdayEl);
-	
-
 }
 
-getData();
+
+personalityBtnEl.addEventListener("click", function() {
+	infoEl.innerHTML = "";
+	
+	
+	
+	let searchKey = "personality"
+	let searchValue = personalityMenuEl.value;
+	
+	getData(searchKey, searchValue);
+});
+
