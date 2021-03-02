@@ -2,9 +2,8 @@ const infoEl = document.querySelector("#display-info");
 
 const personalityMenuEl = document.querySelector("#personality-menu");
 const personalityBtnEl = document.querySelector("#personality-button");
-
-
-
+const speciesMenuEl = document.querySelector("#species-menu");
+const speciesBtnEl = document.querySelector("#species-button");
 
 function getData(searchKey, searchValue) {
 	// API Url
@@ -22,9 +21,7 @@ function getData(searchKey, searchValue) {
 							
 							let villager = data[villagerKey]
 							
-							console.log(villager);
-							
-							if (villager.personality == searchValue) {
+							if (villager[searchKey] == searchValue) {
 								displayInfo(villager);
 							}
 					}
@@ -94,11 +91,19 @@ function displayInfo(villager) {
 personalityBtnEl.addEventListener("click", function() {
 	infoEl.innerHTML = "";
 	
-	
-	
 	let searchKey = "personality"
 	let searchValue = personalityMenuEl.value;
 	
 	getData(searchKey, searchValue);
 });
+
+speciesBtnEl.addEventListener("click", function() {
+	infoEl.innerHTML = "";
+	
+	let searchKey = "species"
+	let searchValue = speciesMenuEl.value;
+	
+	getData(searchKey, searchValue);
+});
+
 
