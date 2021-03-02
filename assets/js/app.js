@@ -94,6 +94,8 @@ personalityBtnEl.addEventListener("click", function() {
 	let searchKey = "personality"
 	let searchValue = personalityMenuEl.value;
 	
+	speciesMenuEl.selectedIndex = 0;
+	
 	getData(searchKey, searchValue);
 });
 
@@ -103,6 +105,8 @@ speciesBtnEl.addEventListener("click", function() {
 	let searchKey = "species"
 	let searchValue = speciesMenuEl.value;
 	
+	personalityMenuEl.selectedIndex = 0;
+
 	getData(searchKey, searchValue);
 });
 
