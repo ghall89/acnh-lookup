@@ -14,7 +14,8 @@ const getData = (searchKey, searchValue, searchKey2, searchValue2) => {
 					.then(function(data) {
 						let resultsArr = [];
 						// iterate through each villager object
-						for (let i = 0; i < Object.keys(data).length; i++) {
+						for (let i = 0; i < Object.keys(data)
+							.length; i++) {
 							const villagerKey = Object.keys(data)[i];
 							const villager = data[villagerKey]
 							if (searchKey2 && searchValue2) {
@@ -27,9 +28,18 @@ const getData = (searchKey, searchValue, searchKey2, searchValue2) => {
 								}
 							}
 						}
-						
+
 						// add code to sort 'resultsArr' alphabetically by 'name'
-						
+						resultsArr.sort(function(a, b) {
+							if (a.name["name-USen"].toLowerCase() < b.name["name-USen"].toLowerCase()) {
+								return -1;
+							}
+							if (a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase()) {
+								return 1;
+							}
+							return 0;
+						});
+
 						// pass results to display info on page
 						displayInfo(resultsArr);
 					});
@@ -41,12 +51,12 @@ const getData = (searchKey, searchValue, searchKey2, searchValue2) => {
 };
 
 const displayInfo = resultsArr => {
-	
+
 	if (resultsArr.length === 0) {
 		const noResultsEl = document.createElement("h4");
 		noResultsEl.className = "no-results";
 		noResultsEl.textContent = "No Results. 😞";
-		
+
 		infoEl.appendChild(noResultsEl);
 	}
 
