@@ -10,3 +10,9 @@ header, .no-results {
 header img {
 	width: 500px;
 }
+
+@media screen and (max-width: 550px) {
+	header img {
+		width: 350px;
+	}
+}
