@@ -1,9 +1,8 @@
 const infoEl = document.querySelector("#display-info");
 
 const personalityMenuEl = document.querySelector("#personality-menu");
-const personalityBtnEl = document.querySelector("#personality-button");
 const speciesMenuEl = document.querySelector("#species-menu");
-const speciesBtnEl = document.querySelector("#species-button");
+const searchBtnEl = document.querySelector("#search-button");
 
 function getData(searchKey, searchValue) {
 	// API Url
@@ -88,26 +87,29 @@ function displayInfo(villager) {
 }
 
 
-personalityBtnEl.addEventListener("click", function() {
-	infoEl.innerHTML = "";
+searchBtnEl.addEventListener("click", function() {
 	
-	let searchKey = "personality"
-	let searchValue = personalityMenuEl.value;
+	event.preventDefault();
 	
-	speciesMenuEl.selectedIndex = 0;
+	if (personalityMenuEl.selectedIndex > 0 && speciesMenuEl.selectedIndex > 0) {
+		console.log("Both parameters selected");
+	} else if (personalityMenuEl.selectedIndex > 0) {
+		console.log("Personality parameter selected");
+	} else if (speciesMenuEl.selectedIndex > 0) {
+		console.log("Species parameter selected");
+	} else {
+		console.log("No parameters selected")
+	}
 	
-	getData(searchKey, searchValue);
+	// infoEl.innerHTML = "";
+	// 
+	// let searchKey = "personality"
+	// let searchValue = personalityMenuEl.value;
+	// 
+	// speciesMenuEl.selectedIndex = 0;
+	// 
+	// getData(searchKey, searchValue);
 });
 
-speciesBtnEl.addEventListener("click", function() {
-	infoEl.innerHTML = "";
-	
-	let searchKey = "species"
-	let searchValue = speciesMenuEl.value;
-	
-	personalityMenuEl.selectedIndex = 0;
-
-	getData(searchKey, searchValue);
-});
 
 
