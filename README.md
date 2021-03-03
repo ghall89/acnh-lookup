@@ -4,9 +4,11 @@
 
 Look up Animal Crossing villagers by personality or species!
 
+![](./assets/img/screenshot.png)
+
 ## Usage
 
-[Deployed Link](https://ghall89.github.io/acnh-lookup/);
+[Deployed Link](https://ghall89.github.io/acnh-lookup/)
 
 ## Frameworks
 
