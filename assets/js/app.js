@@ -4,21 +4,19 @@ const personalityMenuEl = document.querySelector("#personality-menu");
 const speciesMenuEl = document.querySelector("#species-menu");
 const searchBtnEl = document.querySelector("#search-button");
 
-function getData(searchKey, searchValue, searchKey2, searchValue2) {
-	// API Url
-	let url = "https://acnhapi.com/v1/villagers/";
+const getData = (searchKey, searchValue, searchKey2, searchValue2) => {
 
 	// get JSON data and pass to display function
-	fetch(url)
+	fetch("https://acnhapi.com/v1/villagers/")
 		.then(function(response) {
 			if (response.ok) {
 				response.json()
 					.then(function(data) {
 						let resultsArr = [];
 						// iterate through each villager object
-						for (let i = 0; i < 391; i++) {
-							let villagerKey = Object.keys(data)[i];
-							let villager = data[villagerKey]
+						for (let i = 0; i < Object.keys(data).length; i++) {
+							const villagerKey = Object.keys(data)[i];
+							const villager = data[villagerKey]
 							if (searchKey2 && searchValue2) {
 								if (villager[searchKey] == searchValue && villager[searchKey2] == searchValue2) {
 									resultsArr.push(villager);
@@ -42,7 +40,7 @@ function getData(searchKey, searchValue, searchKey2, searchValue2) {
 
 };
 
-function displayInfo(resultsArr) {
+const displayInfo = resultsArr => {
 	
 	if (resultsArr.length === 0) {
 		const noResultsEl = document.createElement("h4");
@@ -106,24 +104,24 @@ searchBtnEl.addEventListener("click", function() {
 
 	if (personalityMenuEl.selectedIndex > 0 && speciesMenuEl.selectedIndex > 0) {
 
-		let searchKey = "personality"
-		let searchValue = personalityMenuEl.value;
-		let searchKey2 = "species"
-		let searchValue2 = speciesMenuEl.value;
+		const searchKey = "personality"
+		const searchValue = personalityMenuEl.value;
+		const searchKey2 = "species"
+		const searchValue2 = speciesMenuEl.value;
 
 		getData(searchKey, searchValue, searchKey2, searchValue2);
 
 	} else if (personalityMenuEl.selectedIndex > 0) {
 
-		let searchKey = "personality"
-		let searchValue = personalityMenuEl.value;
+		const searchKey = "personality"
+		const searchValue = personalityMenuEl.value;
 
 		getData(searchKey, searchValue);
 
 	} else if (speciesMenuEl.selectedIndex > 0) {
 
-		let searchKey = "species"
-		let searchValue = speciesMenuEl.value;
+		const searchKey = "species"
+		const searchValue = speciesMenuEl.value;
 
 		getData(searchKey, searchValue);
 
