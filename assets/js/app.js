@@ -2,13 +2,13 @@ const infoEl = document.querySelector("#display-info");
 
 const personalityMenuEl = document.querySelector("#personality-menu");
 const speciesMenuEl = document.querySelector("#species-menu");
-const searchBtnEl = document.querySelector("#search-button");
+const searchForm = document.querySelector("#search-form");
 
 let apiData;
 
 const getData = (searchKey, searchValue, searchKey2, searchValue2) => {
 
-	// get JSON data and pass to display function
+	// get JSON data from API and store in memory
 	fetch("https://acnhapi.com/v1/villagers/")
 		.then(function(response) {
 			if (response.ok) {
@@ -114,7 +114,7 @@ const displayInfo = resultsArr => {
 
 getData();
 
-searchBtnEl.addEventListener("click", function() {
+searchForm.addEventListener("change", function() {
 
 	event.preventDefault();
 
