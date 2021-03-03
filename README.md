@@ -2,7 +2,7 @@
 
 ## Description
 
-Look up Animal Crossing villagers by personality or species!
+Look up Animal Crossing villagers by personality, species, or both!
 
 ![](./assets/img/screenshot.png)
 
