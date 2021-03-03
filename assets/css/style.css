@@ -1,7 +1,12 @@
 body {
 	padding: 20px 0;
+	background-image: url("../img/background-tile.png");
 }
 
 header, .no-results {
 	text-align: center;
+}
+
+header img {
+	width: 500px;
 }
