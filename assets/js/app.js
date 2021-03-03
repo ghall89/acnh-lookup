@@ -4,7 +4,7 @@ const personalityMenuEl = document.querySelector("#personality-menu");
 const speciesMenuEl = document.querySelector("#species-menu");
 const searchBtnEl = document.querySelector("#search-button");
 
-function getData(searchKey, searchValue) {
+function getData(searchKey, searchValue, searchKey2, searchValue2) {
 	// API Url
 	let url = "https://acnhapi.com/v1/villagers/";
 
@@ -17,30 +17,36 @@ function getData(searchKey, searchValue) {
 						// iterate through each villager object
 						for (let i = 0; i < 391; i++) {
 							let villagerKey = Object.keys(data)[i];
-							
+
 							let villager = data[villagerKey]
-							
-							if (villager[searchKey] == searchValue) {
-								displayInfo(villager);
+							if (searchKey2 && searchValue2) {
+								if (villager[searchKey] == searchValue && villager[searchKey2] == searchValue2) {
+									displayInfo(villager);
+								}
+							} else {
+								if (villager[searchKey] == searchValue) {
+									displayInfo(villager);
+								}
 							}
-					}
+
+						}
 
 					});
 			} else {
 				alert("Error, could not connect to ACNH API");
 			}
 		});
-		
+
 }
 
 function displayInfo(villager) {
-	
+
 	// create Bootstrap elements for each villager
-	
+
 	// Bootstrap columns
 	columnEl = document.createElement("div");
 	columnEl.classList = "col-12 col-md-6 col-lg-4 gy-3"
-	
+
 	// Bootstrap cards
 	const cardEl = document.createElement("div");
 	cardEl.className = "card";
@@ -50,7 +56,7 @@ function displayInfo(villager) {
 	imgEl.className = "card-img-top";
 	const bodyEl = document.createElement("div")
 	bodyEl.className = "card-body"
-	
+
 	//card contents
 	// villager name
 	const nameEl = document.createElement("h5");
@@ -70,46 +76,55 @@ function displayInfo(villager) {
 	const birthdayEl = document.createElement("li");
 	birthdayEl.className = "list-group-item";
 	birthdayEl.textContent = "Birthday: " + villager["birthday-string"];
-	
+
 	//display elements
 	infoEl.appendChild(columnEl)
-	
+
 	columnEl.appendChild(cardEl);
 	cardEl.appendChild(imgEl);
 	cardEl.appendChild(bodyEl);
-	
+
 	bodyEl.appendChild(nameEl);
 	bodyEl.appendChild(personalityEl);
 	bodyEl.appendChild(sayingEl);
-	
+
 	cardEl.appendChild(listEl);
 	listEl.appendChild(birthdayEl);
 }
 
 
 searchBtnEl.addEventListener("click", function() {
-	
+
 	event.preventDefault();
-	
+
+	infoEl.innerHTML = "";
+
 	if (personalityMenuEl.selectedIndex > 0 && speciesMenuEl.selectedIndex > 0) {
-		console.log("Both parameters selected");
+
+		let searchKey = "personality"
+		let searchValue = personalityMenuEl.value;
+		let searchKey2 = "species"
+		let searchValue2 = speciesMenuEl.value;
+		
+		getData(searchKey, searchValue, searchKey2, searchValue2);
+
 	} else if (personalityMenuEl.selectedIndex > 0) {
-		console.log("Personality parameter selected");
+
+		let searchKey = "personality"
+		let searchValue = personalityMenuEl.value;
+
+		getData(searchKey, searchValue);
+
 	} else if (speciesMenuEl.selectedIndex > 0) {
-		console.log("Species parameter selected");
+
+		let searchKey = "species"
+		let searchValue = speciesMenuEl.value;
+
+		getData(searchKey, searchValue);
+
 	} else {
-		console.log("No parameters selected")
+		alert("No parameters selected")
 	}
-	
-	// infoEl.innerHTML = "";
-	// 
-	// let searchKey = "personality"
-	// let searchValue = personalityMenuEl.value;
-	// 
-	// speciesMenuEl.selectedIndex = 0;
-	// 
-	// getData(searchKey, searchValue);
+
+
 });
-
-
-
