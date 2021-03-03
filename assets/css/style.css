@@ -1,6 +1,8 @@
-body {
+body, form {
 	padding: 20px 0;
+	background: white;
 	background-image: url("../img/background-tile.png");
+	background-attachment: fixed;
 }
 
 header, .no-results {
