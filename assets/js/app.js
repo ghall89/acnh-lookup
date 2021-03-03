@@ -4,6 +4,8 @@ const personalityMenuEl = document.querySelector("#personality-menu");
 const speciesMenuEl = document.querySelector("#species-menu");
 const searchBtnEl = document.querySelector("#search-button");
 
+let apiData;
+
 const getData = (searchKey, searchValue, searchKey2, searchValue2) => {
 
 	// get JSON data and pass to display function
@@ -12,43 +14,47 @@ const getData = (searchKey, searchValue, searchKey2, searchValue2) => {
 			if (response.ok) {
 				response.json()
 					.then(function(data) {
-						let resultsArr = [];
-						// iterate through each villager object
-						for (let i = 0; i < Object.keys(data)
-							.length; i++) {
-							const villagerKey = Object.keys(data)[i];
-							const villager = data[villagerKey]
-							if (searchKey2 && searchValue2) {
-								if (villager[searchKey] == searchValue && villager[searchKey2] == searchValue2) {
-									resultsArr.push(villager);
-								}
-							} else {
-								if (villager[searchKey] == searchValue) {
-									resultsArr.push(villager);
-								}
-							}
-						}
-
-						// add code to sort 'resultsArr' alphabetically by 'name'
-						resultsArr.sort(function(a, b) {
-							if (a.name["name-USen"].toLowerCase() < b.name["name-USen"].toLowerCase()) {
-								return -1;
-							}
-							if (a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase()) {
-								return 1;
-							}
-							return 0;
-						});
-
-						// pass results to display info on page
-						displayInfo(resultsArr);
-					});
+						apiData = data;
+					})
 			} else {
 				alert("Error, could not connect to ACNH API");
 			}
 		});
 
 };
+
+const getResults = (searchKey, searchValue, searchKey2, searchValue2) => {
+	let resultsArr = [];
+	// iterate through each villager object
+	for (let i = 0; i < Object.keys(apiData)
+		.length; i++) {
+		const villagerKey = Object.keys(apiData)[i];
+		const villager = apiData[villagerKey]
+		if (searchKey2 && searchValue2) {
+			if (villager[searchKey] == searchValue && villager[searchKey2] == searchValue2) {
+				resultsArr.push(villager);
+			}
+		} else {
+			if (villager[searchKey] == searchValue) {
+				resultsArr.push(villager);
+			}
+		}
+	}
+
+	// add code to sort 'resultsArr' alphabetically by 'name'
+	resultsArr.sort(function(a, b) {
+		if (a.name["name-USen"].toLowerCase() < b.name["name-USen"].toLowerCase()) {
+			return -1;
+		}
+		if (a.name["name-USen"].toLowerCase() > b.name["name-USen"].toLowerCase()) {
+			return 1;
+		}
+		return 0;
+	});
+
+	// pass results to display info on page
+	displayInfo(resultsArr);
+}
 
 const displayInfo = resultsArr => {
 
@@ -106,6 +112,8 @@ const displayInfo = resultsArr => {
 	}
 };
 
+getData();
+
 searchBtnEl.addEventListener("click", function() {
 
 	event.preventDefault();
@@ -119,21 +127,21 @@ searchBtnEl.addEventListener("click", function() {
 		const searchKey2 = "species"
 		const searchValue2 = speciesMenuEl.value;
 
-		getData(searchKey, searchValue, searchKey2, searchValue2);
+		getResults(searchKey, searchValue, searchKey2, searchValue2);
 
 	} else if (personalityMenuEl.selectedIndex > 0) {
 
 		const searchKey = "personality"
 		const searchValue = personalityMenuEl.value;
 
-		getData(searchKey, searchValue);
+		getResults(searchKey, searchValue);
 
 	} else if (speciesMenuEl.selectedIndex > 0) {
 
 		const searchKey = "species"
 		const searchValue = speciesMenuEl.value;
 
-		getData(searchKey, searchValue);
+		getResults(searchKey, searchValue);
 
 	} else {
 		alert("No parameters selected")
