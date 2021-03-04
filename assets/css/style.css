@@ -1,8 +1,12 @@
-body, form {
+body{
 	padding: 20px 0;
 	background: white;
 	background-image: url("../img/background-tile.png");
 	background-attachment: fixed;
+}
+
+.container, form {
+	background: white;
 }
 
 header, .no-results {
@@ -12,6 +16,8 @@ header, .no-results {
 header img {
 	width: 500px;
 }
+
+
 
 @media screen and (max-width: 550px) {
 	header img {
