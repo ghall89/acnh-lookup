@@ -57,7 +57,7 @@ const getResults = (searchKey, searchValue, searchKey2, searchValue2) => {
 }
 
 const displayInfo = resultsArr => {
-
+	console.log(resultsArr);
 	if (resultsArr.length === 0) {
 		const noResultsEl = document.createElement("h4");
 		noResultsEl.className = "no-results";
@@ -75,6 +75,7 @@ const displayInfo = resultsArr => {
 		const cardEl = document.createElement("div");
 		cardEl.className = "card h-100";
 		cardEl.setAttribute("style", "width: 100%");
+		cardEl.style.background = resultsArr[i]["bubble-color"];
 		const imgEl = document.createElement("img");
 		imgEl.setAttribute("src", resultsArr[i].image_uri);
 		imgEl.className = "card-img-top";
@@ -84,14 +85,17 @@ const displayInfo = resultsArr => {
 		// name
 		const nameEl = document.createElement("h5");
 		nameEl.className = "card-title";
+		nameEl.style.color = resultsArr[i]["text-color"];
 		nameEl.textContent = resultsArr[i].name["name-USen"];
 		// descriptor
 		const personalityEl = document.createElement("p");
-		personalityEl.classList = "card-text text-secondary";
-		personalityEl.textContent = resultsArr[i].personality + " Villager";
+		personalityEl.classList = "card-text";
+		personalityEl.style.color = resultsArr[i]["text-color"];
+		personalityEl.textContent = resultsArr[i].personality + " " + resultsArr[i].species;
 		// quote
 		const sayingEl = document.createElement("p");
 		sayingEl.className = "card-text";
+		sayingEl.style.color = resultsArr[i]["text-color"];
 		sayingEl.textContent = '"' + resultsArr[i].saying + '"';
 		// birthday
 		const listEl = document.createElement("ul");
