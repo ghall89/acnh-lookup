@@ -73,7 +73,7 @@ const displayInfo = resultsArr => {
 		columnEl.classList = "col-12 col-md-6 col-lg-4 col-xl-3 col-xx-2 gy-3"
 		// Bootstrap cards
 		const cardEl = document.createElement("div");
-		cardEl.className = "card";
+		cardEl.className = "card h-100";
 		cardEl.setAttribute("style", "width: 100%");
 		const imgEl = document.createElement("img");
 		imgEl.setAttribute("src", resultsArr[i].image_uri);
@@ -143,8 +143,6 @@ searchForm.addEventListener("change", function() {
 
 		getResults(searchKey, searchValue);
 
-	} else {
-		alert("No parameters selected")
 	}
 
 });
