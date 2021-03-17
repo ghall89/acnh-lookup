@@ -143,8 +143,6 @@ searchForm.addEventListener("change", function() {
 
 		getResults(searchKey, searchValue);
 
-	} else {
-		alert("No parameters selected")
 	}
 
 });
