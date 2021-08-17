@@ -6,7 +6,7 @@
 
 As a user I would like to get a picture, favorite quote, and birthday of any villager in Animal Crossing New Horizons based on species and/or personality type. When I am on the homepage, I am presented with 2 drop downs, one for personality type, the other for species, that allow me to choose to filter by either or both attributes.
 
-## Features
+### Features
 
 - User can choose species, personality type, or both
 - The page presents the results in a grid
